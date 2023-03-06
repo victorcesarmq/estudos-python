@@ -2,3 +2,9 @@
 
 //Em muitos algoritmos, ocorrerá a necessidade de executar determindado comando (ou bloco de comandos) por mais qde uma vez. Para não precisar reescrever varias linhas em um algoritmo, pode-se utilizar as estruturas de repetição. Estudaremos três delas: enquanto, repita e para. 
 //Esta estrutura de repetição executara um determinado trecho de codigo repetidas vezes. Este teste e feito de forma semelhante ao comando "SE", caso o resultado do teste seja verdadeiro, ele executara os comandos.
+
+//Faça um algoritmo para, imprimir o resultado de uma pesquisa sabendo que foram entrevistados 50 alunos do campus cuiaba IFMT. Desses 50 alunos desejase saber, quantos alunos escolheram engenharia da computação, quantos escolheram o curso de engenharia de automação, e quantos escolheram o curso de engenharia eletrica.
+
+//Faça um algoritmo para imprimir o resultado de eleição do representante de sala do curso de computação. Sabendo que: existem 2 candidatos e a eleição sera controlada pelo numero de matricula 
+
+//FAca um algoritmo para imprimir quantos numero pares existem de 13 até 476, quantos numeros multiplos de 9 existem nesse mesmo intervalo, a raiz quadrada dos numeros maiores que 100, e quantos numeros sao divisiveis por 7. 
