@@ -39,28 +39,36 @@ import json
 import pandas as pd
 import datetime as dt
 
-transacoes = [] # {"Id":, "Data":, "Valor":} estrutura de dicionario
+transacoes = [] # {"Id":, "Data":, "Valor":, "Operacao":} estrutura de dicionario
 saldo = 0
 
 
 def depositar(valor):
     global saldo
+    print(f"Depositou: {valor}")
     saldo += valor
-    transacoes.append({"Id": len(transacoes) + 1, "Data": dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "Valor": valor})
+    transacoes.append({"Id": len(transacoes) + 1, "Data": dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "Valor": valor, "Operacao": "Deposito"})
     return saldo
 
 def sacar(valor):
     global saldo
+    print(f"Sacou: {-valor}")
     saldo -= valor
-    transacoes.append({"Id": len(transacoes) + 1, "Data": dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "Valor": valor})
+    transacoes.append({"Id": len(transacoes) + 1, "Data": dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "Valor": valor, "Operacao": "Saque"})
     return saldo
 
 def exibir_extrato():
     global saldo, transacoes
     print(f"Saldo: {saldo}\n {transacoes}")
 
-depositar(1000)
-print(saldo)
-depositar(100)
+depositar(1)
 print(saldo)
 print(transacoes)
+depositar(1)
+print(saldo)
+print(transacoes)
+sacar(1)
+print(saldo)
+print(transacoes)
+
+
