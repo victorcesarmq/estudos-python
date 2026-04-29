@@ -17,7 +17,8 @@ Repositório dedicado ao registro da minha evolução em Python, com foco em ló
 ## 📂 Estrutura do Projeto
 
 ```
-Em andamento
+fundamentos/ → estudos da linguagem, exercícios e pequenos projetos
+hackerrank/easy/ → resolução de desafios da plataforma HackerRank
 ```
 
 ---
