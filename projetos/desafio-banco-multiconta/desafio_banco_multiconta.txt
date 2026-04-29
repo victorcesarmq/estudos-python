@@ -1,0 +1,307 @@
+================================================================
+  DESAFIO — SISTEMA BANCÁRIO MULTI-CONTA
+  Victor Queiroz | Fase 1 → Fase 2 da Trilha
+================================================================
+
+OBJETIVO DO PROJETO
+-------------------
+Evoluir o sistema bancário que você já fez (uma conta, saque,
+depósito, extrato) para um sistema que gerencia MÚLTIPLAS contas,
+com transferência entre elas, persistência em arquivo JSON e
+um relatório gerado com pandas.
+
+
+================================================================
+  PARTE 1 — REVISÃO: CLASS, __INIT__ E SELF
+================================================================
+
+Antes de começar, relembra como esses três funcionam juntos.
+
+
+O QUE É UMA CLASSE?
+--------------------
+Uma classe é um molde. Ela descreve como um objeto será.
+Pensa assim: a classe "Conta" descreve o que toda conta tem
+(saldo, titular, histórico) e o que toda conta faz (sacar,
+depositar, transferir).
+
+    class Conta:
+        ...
+
+Você ainda não criou nenhuma conta aqui. Só definiu o molde.
+
+
+O QUE É __INIT__?
+------------------
+É o método que roda automaticamente quando você CRIA um objeto.
+Serve para definir os atributos iniciais daquele objeto.
+
+    class Conta:
+        def __init__(self, titular, saldo_inicial):
+            self.titular = titular
+            self.saldo = saldo_inicial
+            self.transacoes = []
+
+Quando você escreve:
+    conta1 = Conta("Victor", 500)
+
+Python chama o __init__ automaticamente, passando:
+    titular = "Victor"
+    saldo_inicial = 500
+
+E o objeto conta1 nasce com:
+    conta1.titular   → "Victor"
+    conta1.saldo     → 500
+    conta1.transacoes → []
+
+
+O QUE É SELF?
+--------------
+Self é o jeito do objeto falar de SI MESMO.
+
+Quando você escreve self.saldo dentro da classe, está dizendo:
+"o saldo DESTE objeto específico".
+
+Isso é importante porque você pode ter várias contas ao mesmo tempo:
+
+    conta1 = Conta("Victor", 500)
+    conta2 = Conta("Maria", 1000)
+
+Quando conta1.depositar(200) é chamado, o self dentro do método
+aponta para conta1 — não para conta2.
+
+Exemplo completo:
+
+    class Conta:
+        def __init__(self, titular, saldo_inicial):
+            self.titular = titular
+            self.saldo = saldo_inicial
+
+        def depositar(self, valor):
+            self.saldo += valor
+            print(f"Depósito de R${valor:.2f} realizado.")
+            print(f"Saldo de {self.titular}: R${self.saldo:.2f}")
+
+    conta1 = Conta("Victor", 500)
+    conta2 = Conta("Maria", 1000)
+
+    conta1.depositar(200)
+    # Saída: Depósito de R$200.00 realizado.
+    #        Saldo de Victor: R$700.00
+
+    conta2.depositar(300)
+    # Saída: Depósito de R$300.00 realizado.
+    #        Saldo de Maria: R$1300.00
+
+Percebe? O self garante que cada objeto cuida do seu próprio estado.
+
+
+================================================================
+  PARTE 2 — HERANÇA (CONCEITO NOVO)
+================================================================
+
+Herança é quando uma classe filha herda tudo da classe mãe,
+mas pode ter comportamentos diferentes.
+
+Por que isso é útil aqui?
+ContaCorrente e ContaPoupanca são tipos de Conta.
+As duas têm saldo, titular, transações, depósito.
+Mas cada uma tem regras diferentes:
+  - ContaCorrente: pode ter limite de cheque especial
+  - ContaPoupanca: pode render juros mensais
+
+Em vez de repetir o código, você herda da classe base:
+
+    class Conta:                        # classe mãe (base)
+        def __init__(self, titular, saldo_inicial):
+            self.titular = titular
+            self.saldo = saldo_inicial
+            self.transacoes = []
+
+        def depositar(self, valor):
+            self.saldo += valor
+
+        def sacar(self, valor):
+            if valor > self.saldo:
+                print("Saldo insuficiente.")
+                return False
+            self.saldo -= valor
+            return True
+
+
+    class ContaCorrente(Conta):         # herda de Conta
+        def __init__(self, titular, saldo_inicial, limite):
+            super().__init__(titular, saldo_inicial)  # chama o __init__ da mãe
+            self.limite = limite
+
+        def sacar(self, valor):         # sobrescreve o sacar da mãe
+            if valor > self.saldo + self.limite:
+                print("Limite excedido.")
+                return False
+            self.saldo -= valor
+            return True
+
+
+    class ContaPoupanca(Conta):         # também herda de Conta
+        def __init__(self, titular, saldo_inicial, taxa_juros):
+            super().__init__(titular, saldo_inicial)
+            self.taxa_juros = taxa_juros
+
+        def render_juros(self):         # método exclusivo da poupança
+            rendimento = self.saldo * self.taxa_juros
+            self.saldo += rendimento
+            print(f"Rendimento de R${rendimento:.2f} aplicado.")
+
+O super().__init__() serve para chamar o __init__ da classe mãe
+sem precisar repetir o código dela.
+
+
+================================================================
+  PARTE 3 — PERSISTÊNCIA COM JSON + PATHLIB
+================================================================
+
+O sistema precisa salvar os dados em um arquivo para que
+ao fechar e abrir de novo, as contas e transações continuem lá.
+
+json    → serializa dicionários Python para texto e lê de volta
+pathlib → lida com caminhos de arquivos de forma elegante
+
+Exemplo básico de salvar e carregar:
+
+    import json
+    from pathlib import Path
+
+    arquivo = Path("dados_banco.json")
+
+    # Salvar
+    dados = {"titular": "Victor", "saldo": 700}
+    arquivo.write_text(json.dumps(dados, indent=4, ensure_ascii=False))
+
+    # Carregar
+    if arquivo.exists():
+        dados = json.loads(arquivo.read_text())
+
+No projeto, você vai salvar a lista de todas as contas com
+suas transações sempre que uma operação for realizada.
+
+
+================================================================
+  PARTE 4 — RELATÓRIO COM PANDAS
+================================================================
+
+Depois que as transações estiverem salvas em JSON, você pode
+carregar esse arquivo com pandas e gerar estatísticas.
+
+    import pandas as pd
+    import json
+    from pathlib import Path
+
+    dados = json.loads(Path("dados_banco.json").read_text())
+
+    # Supondo que dados seja uma lista de transações:
+    df = pd.DataFrame(dados)
+
+    print(df.groupby("conta")["valor"].sum())    # total por conta
+    print(df["valor"].max())                      # maior transação
+    print(df.groupby("operacao")["valor"].mean()) # média por tipo
+
+Isso é o pandas fazendo o que ele foi feito para fazer:
+análise de dados tabulares. Aqui ele entra de forma natural.
+
+
+================================================================
+  PARTE 5 — O DESAFIO COMPLETO
+================================================================
+
+FUNCIONALIDADES OBRIGATÓRIAS:
+------------------------------
+[ ] Criar ContaCorrente (com limite de cheque especial)
+[ ] Criar ContaPoupanca (com taxa de juros)
+[ ] Depositar em uma conta específica
+[ ] Sacar de uma conta específica
+[ ] Transferir entre duas contas
+[ ] Exibir extrato de uma conta
+[ ] Listar todas as contas cadastradas
+[ ] Salvar tudo em JSON ao sair
+[ ] Carregar os dados ao iniciar o programa
+[ ] Gerar relatório com pandas ao final
+
+MENU SUGERIDO:
+--------------
+    1. Nova conta corrente
+    2. Nova conta poupança
+    3. Depositar
+    4. Sacar
+    5. Transferir
+    6. Extrato
+    7. Listar contas
+    8. Relatório (pandas)
+    0. Sair (salva automaticamente)
+
+
+ESTRUTURA DE ARQUIVOS SUGERIDA:
+--------------------------------
+    sistema_banco/
+    ├── main.py            → menu e loop principal
+    ├── conta.py           → classes Conta, ContaCorrente, ContaPoupanca
+    ├── banco.py           → classe Banco (gerencia todas as contas)
+    ├── relatorio.py       → função que gera o relatório com pandas
+    └── dados_banco.json   → criado automaticamente pelo programa
+
+
+DICAS IMPORTANTES:
+------------------
+1. Comece pela classe Conta base antes de criar as filhas.
+   Teste depositar e sacar antes de adicionar herança.
+
+2. A transferência é só um sacar + depositar em sequência.
+   Mas atenção: se o saque falhar, o depósito NÃO deve acontecer.
+
+3. Guarde todas as contas em um dicionário dentro de uma classe Banco:
+       self.contas = {}   # chave: número da conta ou CPF
+   Isso facilita buscar uma conta por identificador.
+
+4. Salve no JSON só quando o usuário escolher sair (opção 0).
+   Não precisa salvar a cada operação — simplifica bastante.
+
+5. O relatório pandas pode ser simples: total depositado,
+   total sacado, saldo atual por conta. Não precisa ser complexo.
+
+
+ERRO COMUM A EVITAR:
+---------------------
+Na transferência, não faça assim:
+
+    def transferir(self, origem, destino, valor):
+        origem.saldo -= valor    # ❌ acessa atributo direto de fora
+        destino.saldo += valor
+
+Faça assim:
+
+    def transferir(self, origem, destino, valor):
+        if origem.sacar(valor):  # ✅ usa o método que já valida
+            destino.depositar(valor)
+
+Sempre prefira chamar os métodos do objeto em vez de
+modificar os atributos diretamente de fora da classe.
+
+
+================================================================
+  RESUMO DO QUE VOCÊ VAI PRATICAR
+================================================================
+
+  Conceito              | Onde aparece
+  ----------------------|------------------------------------------
+  class + __init__      | Conta, ContaCorrente, ContaPoupanca, Banco
+  self                  | Todos os métodos
+  Herança               | ContaCorrente e ContaPoupanca herdam Conta
+  super()               | No __init__ das classes filhas
+  Dicionários           | self.contas no Banco, transações
+  datetime              | Registro de data/hora de cada transação
+  json + pathlib        | Salvar e carregar dados
+  pandas                | Relatório final
+  try/except            | Validação de entradas do usuário
+
+================================================================
+  Bom desafio, Victor. Qualquer dúvida é só perguntar.
+================================================================

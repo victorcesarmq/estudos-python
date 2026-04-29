@@ -8,6 +8,7 @@ class conta:
     def depositar(self, valor): # depositar valor
         if valor <= 0:
             print("Valor Invalido")
+            return
         self.saldo += valor
         self.transacoes.append({"Id": len(self.transacoes) + 1,
                                 "Data": dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
