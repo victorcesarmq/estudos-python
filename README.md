@@ -17,11 +17,7 @@ Repositório dedicado ao registro da minha evolução em Python, com foco em ló
 ## 📂 Estrutura do Projeto
 
 ```
-fundamentos/
-│
-├── python/
-├── exercicios/
-└── projetos/
+Em andamento
 ```
 
 ---
@@ -36,7 +32,7 @@ fundamentos/
 
 ---
 
-## 📌 Projetos em destaque
+## 📌 Projetos/Exercicios em destaque
 
 * Sistema de conta bancária (depósito, saque e extrato)
 * (em breve mais projetos)
@@ -51,4 +47,4 @@ Desenvolver raciocínio lógico e evoluir para projetos mais complexos na área 
 
 ## 📈 Status
 
-🚧 Em constante evolução
+🚧 Tentando nao desistir
