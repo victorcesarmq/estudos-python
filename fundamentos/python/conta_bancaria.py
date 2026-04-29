@@ -2,9 +2,9 @@ import json
 import pandas
 import datetime as dt
 
-
 transacoes = [] # {"Id":, "Data":, "Valor":, "Operacao":} estrutura de dicionario
 saldo = 0 #variavel global
+
 
 
 def depositar(valor): # depositar valor
@@ -27,6 +27,19 @@ def sacar(valor): # sacar valor
 def exibir_extrato(): # extrato
     print(f"Saldo: R${saldo}\n {transacoes}")
 
-depositar(100)
-sacar(100)
-exibir_extrato()
+print("MENU")
+print("1. Sacar \n2. Depositar \n3. Extrato \n4. Sair")
+while True:
+    try:
+        opcao = int(input("Escolha uma operacao: "))
+        if opcao == 1:
+            valor = int(input(f"Quanto desejar sacar: R$"))
+            sacar(valor)
+        elif opcao == 2:
+            valor = int(input(f"Quanto deseja depositar : R$"))
+            depositar(valor)
+        elif opcao == 3:
+            exibir_extrato()
+        elif opcao == 4: break
+    except ValueError:
+        print("Digite uma opcao valida!")
