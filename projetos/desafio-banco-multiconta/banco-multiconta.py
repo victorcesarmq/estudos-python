@@ -2,13 +2,10 @@ import json
 from pathlib import Path
 
 class Conta:
-    def __init__(self,titular):
-        self.extrato = [] # {"Id-transacao":, "Data":, "Valor":, "Operacao":} estrutura de dicionario
-        self.numero = numero # numero da conta
+    def __init__(self):
+        self.historico = [] # {"Id-transacao":, "Data":, "Valor":, "Operacao":} estrutura de dicionario
         self.saldo = saldo # Saldo disponivel da conta
         self.limite = limite
-        self.titular = []# {"CPF":} estrutura de dicionario
-
 
 
     def depositar(self, valor):
@@ -32,7 +29,7 @@ class Conta:
 
 
 
-    def extrato(self):
+    def extrato_da_conta(self):
         self.saldo
 
     def limite_da_conta(self, valor):
@@ -42,20 +39,14 @@ class Conta:
         else:
             print("Transferencia em cont")
 
-    def cadastrar(self):
-        self.titular = input("Informe o CPF do titular: ")
-        self.nome = input("Informe o nome do titular: ")
-
-
-
-class ContaPoupanca:
-    def __init__(self):
-        super().__init__(titular)
-
 conta = Conta()
 
 print("MENU")
-print("1. Sacar \n2. Depositar \n3. Extrato \n0. Sair")
+print("1. Sacar \n"
+      "2. Depositar \n"
+      "3. Extrato \n"
+      "4. Cadastro de Usuario \n"
+      "0. Sair")
 while True:
     try:
         opcao = int(input("Escolha uma operacao (0 para sair): "))
