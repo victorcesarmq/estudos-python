@@ -66,16 +66,16 @@ MENU DE CONTA
 --------------------
 Escolha: 1
 Nome: Victor Cesar
-CPF: 067.164.481-52
+CPF: 123.456.789-00
 
 --------------------
 MENU DE CONTA
 --------------------
 Escolha: 2
-Contas Disponíveis: 067.164.481-52
-Digite o CPF: 067.164.481-52
+Contas Disponíveis: 123.456.789-00
+Digite o CPF: 123.456.789-00
 
-Conta Atual: 067.164.481-52
+Conta Atual: 123.456.789-00
 Saldo: R$0.00
 1 - Depositar
 2 - Saque
@@ -89,7 +89,7 @@ Cada conta gera um arquivo `{cpf}.json`:
 
 ```json
 {
-    "CPF": "067.164.481-52",
+    "CPF": "123.456.789-002",
     "Nome": "Victor Cesar",
     "saldo": 800.0,
     "historico": [
