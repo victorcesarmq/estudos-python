@@ -111,11 +111,8 @@ Cada conta gera um arquivo `{cpf}.json`:
 
 ## 🚧 Melhorias Futuras
 
-- [ ] Verificação de CPF duplicado no cadastro
-- [ ] Herança com `ContaCorrente` e `ContaPoupança`
+- [X] Verificação de CPF duplicado no cadastro
 - [ ] Transferência entre contas
-- [ ] Relatório de movimentações com `pandas`
-- [ ] Interface gráfica com `tkinter`
 
 ## 👨‍💻 Autor
 
