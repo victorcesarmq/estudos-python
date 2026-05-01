@@ -23,15 +23,15 @@ while True:
         try:
             print("Contas Disponiveis")
             print("-" * 20)
-            for i in banco.pessoa.keys():
-                print(i)
+            for cpf in banco.pessoa:
+                print(cpf)
             print("-" * 20)
             cpf = input("Digite o cpf: ")
             if cpf in banco.pessoa:
                 while True:
                     conta = banco.pessoa[cpf]
-                    print("MENU DA CONTA", cpf)
-                    print("-" * 20)
+                    print(f"Conta Atual: {cpf}\n",
+                          f"Saldo: {conta.saldo}")
                     print("-" * 20)
                     print("1 - Depositar")
                     print("2 - Saque")

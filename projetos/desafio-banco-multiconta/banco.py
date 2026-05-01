@@ -3,15 +3,27 @@ import json
 import datetime as dt
 from conta import *
 
-arquivo = Path("historico.json")
-
 class Banco:
     def __init__(self):
+        banco_pessoas = Path(f"Banco.json")
         self.pessoa = {}
+        if banco_pessoas.exists() and banco_pessoas.stat().st_size > 0:
+            with open("Banco.json", "r", encoding="utf-8") as f:
+                dados = json.load(f)
+                for cpf, nome in dados.items():
+                    self.pessoa[cpf] = Conta(nome, cpf)
 
 
     def cadastrar_conta(self):
         nome = input("Nome: ")
         cpf = input("CPF: ")
-        nova_conta = Conta(nome, cpf) # cria um objeto Conta passando nome e cpf
+        nova_conta = Conta(nome, cpf) # cria um objeto nova_conta passando nome e cpf pra classe Conta
         self.pessoa[cpf] = nova_conta  # guarda a conta no dicionário
+        self.salvar()
+
+    def salvar(self):
+        dados = {}
+        for cpf, conta in self.pessoa.items():
+            dados[cpf] = conta.nome
+        with open("Banco.json", "w", encoding="utf-8") as f:
+            json.dump(dados, f, indent=4, ensure_ascii=False)
