@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 import datetime as dt
-from banco import *
 
 
 

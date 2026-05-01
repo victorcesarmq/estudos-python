@@ -19,9 +19,9 @@ class Banco:
         cpf = input("CPF: ")
         nova_conta = Conta(nome, cpf) # cria um objeto nova_conta passando nome e cpf pra classe Conta
         self.pessoa[cpf] = nova_conta  # guarda a conta no dicionário
-        self.salvar()
+        self.salvar() #salva a conta, preciso adicionar uma verificacao depois
 
-    def salvar(self):
+    def salvar(self): #salva a conta no Banco.json
         dados = {}
         for cpf, conta in self.pessoa.items():
             dados[cpf] = conta.nome
