@@ -18,8 +18,12 @@ class Banco:
         nome = input("Nome: ")
         cpf = input("CPF: ")
         nova_conta = Conta(nome, cpf) # cria um objeto nova_conta passando nome e cpf pra classe Conta
-        self.pessoa[cpf] = nova_conta  # guarda a conta no dicionário
-        self.salvar() #salva a conta, preciso adicionar uma verificacao depois
+        if cpf in self.pessoa:
+            print("Ja existe uma conta cadastrada nesse CPF")
+            return
+        else:
+            self.pessoa[cpf] = nova_conta  # guarda a conta no dicionário
+            self.salvar() #salva a conta, preciso adicionar uma verificacao depois
 
     def salvar(self): #salva a conta no Banco.json
         dados = {}
