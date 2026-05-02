@@ -81,7 +81,8 @@ Saldo: R$0.00
 1 - Depositar
 2 - Saque
 3 - Extrato
-4 - Sair
+4 - Transferencia
+5 - Sair
 ```
 
 ## 📁 Formato dos Arquivos JSON
