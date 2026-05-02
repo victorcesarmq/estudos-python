@@ -16,6 +16,7 @@ O sistema simula operações bancárias reais: cadastro de clientes, depósitos,
 - Saque com validação de saldo e limite
 - Extrato com data, hora e tipo de operação
 - Persistência automática em JSON por conta
+- Tranferencia entre contas
 
 ## 🗂️ Estrutura do Projeto
 
@@ -89,7 +90,7 @@ Cada conta gera um arquivo `{cpf}.json`:
 
 ```json
 {
-    "CPF": "123.456.789-002",
+    "CPF": "123.456.789-00",
     "Nome": "Victor Cesar",
     "saldo": 800.0,
     "historico": [
@@ -103,7 +104,8 @@ Cada conta gera um arquivo `{cpf}.json`:
             "Id-transacao": 2,
             "Valor": 200.0,
             "Data": "01/05/2026 14:33:05",
-            "Operacao": "Saque"
+            "Operacao": "Transferencia Enviada/Recebida!"
+            "Origem": "CPF"
         }
     ]
 }
@@ -112,7 +114,8 @@ Cada conta gera um arquivo `{cpf}.json`:
 ## 🚧 Melhorias Futuras
 
 - [X] Verificação de CPF duplicado no cadastro
-- [ ] Transferência entre contas
+- [X] Transferência entre contas com verificação de saldo e se a conta destino existe.
+
 
 ## 👨‍💻 Autor
 
