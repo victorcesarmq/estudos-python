@@ -13,7 +13,6 @@ class Banco:
                 for cpf, nome in dados.items():
                     self.pessoa[cpf] = Conta(nome, cpf)
 
-
     def cadastrar_conta(self):
         nome = input("Nome: ")
         cpf = input("CPF: ")

@@ -48,8 +48,8 @@ class Conta:
         return True
 
     def saque(self, valor,Operacao="Saque",cpf_relacionado=None):
-        if valor > self.saldo:
-            print("Erro: voce ta quebrado pai")
+        if valor > self.saldo or valor < 0:
+            print("Erro: valor invalido")
             return False
         elif valor > self.limite:
             print("Erro: limite de saque atingido")
@@ -99,5 +99,3 @@ class Conta:
         if self.saque(valor, Operacao="Transferencia Enviada", cpf_relacionado=conta_destino.cpf):
             conta_destino.depositar(valor, Operacao="Transferencia Recebida", cpf_relacionado=self.cpf)
             return True
-
-
