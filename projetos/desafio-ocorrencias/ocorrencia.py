@@ -1,6 +1,8 @@
 import datetime as dt
+import pandas as pd
 import json
 import os
+
 
 class Ocorrencia():
     def __init__(self):
@@ -32,12 +34,11 @@ class Ocorrencia():
 
     def definir_data(self):
         print("A ocorrencia aconteceu hoje ou em uma data retrograda?")
-        print("1. Agora\n2.Retrograda")
+        print("1. Agora\n2. Retrograda")
         opcao = int(input("Digite uma opcao: "))
-
         try:
             if opcao == 1:
-                self.data = dt.datetime.now("%d/%m/%Y %H:%M:%S")
+                self.data = dt.datetime.now()
             elif opcao == 2:
                 data_ocorrencia = input("Digite a data da ocorrencia (DD/MM/AAAA): ")
                 hora_ocorrencia = input("Digite a hora da ocorrencia (HH:MM): ")
@@ -85,7 +86,3 @@ class Ocorrencia():
         except:
             print("Opcao invalida")
         return
-
-    def definir_id(self):
-        pass
-
