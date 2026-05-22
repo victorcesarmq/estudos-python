@@ -1,9 +1,9 @@
-from ocorrencia import *
-from datetime import datetime
-import pandas as pd
-import json
-from pathlib import Path
+from ocorrencia import Ocorrencia
 
+import pandas as pd
+from pathlib import Path
+from datetime import datetime
+import json
 
 class Registro():
     def __init__(self):
@@ -54,7 +54,7 @@ class Registro():
                 "Status": oc.status
             })
         df = pd.DataFrame(dados)
-        print(df.to_string(index=False))
+        return df
 
 # ---------------------SALVAR OCORRENCIA---------------------
 

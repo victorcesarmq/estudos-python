@@ -1,8 +1,5 @@
-import datetime as dt
-import pandas as pd
-import json
 import os
-
+import datetime as dt
 
 class Ocorrencia():
     def __init__(self):

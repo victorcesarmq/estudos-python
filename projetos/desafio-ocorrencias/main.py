@@ -1,13 +1,23 @@
-from registro import *
-from ocorrencia import *
+from registro import Registro
+from ocorrencia import Ocorrencia
+
+import pandas as pd
+from pathlib import Path
+import datetime as dt
+import os
+import json
 
 ocorrencia_registro = Ocorrencia()
 registro = Registro()
 
+path_df_ocorrencias = Path(__file__).parent / "dados" / "ocorrencias.json"
+
 while True:
     print("Ocorrencias")
     print("1. Cadastrar Ocorrencia")
-    print("2. Registro de Ocorrencia")
+    print("2. Ocorrencias em Andamento")
+    print("3. Ocorrencias Concluidas")
+    print("4. Ocorrencias Especifica")
     escolha = int(input("Escolha: "))
     if escolha == 1:
         ocorrencia_registro.definir_local()
@@ -18,4 +28,18 @@ while True:
         registro.adicionar(ocorrencia_registro)
         registro.salvar()
     if escolha == 2:
-        registro.listar()
+        df_ocorrencias = registro.listar()
+
+        df_filtrado = df_ocorrencias[df_ocorrencias["Status"] == "Em andamento"]
+        print(df_filtrado)
+
+    if escolha == 3:
+        df_ocorrencias = registro.listar()
+
+        df_filtrado = df_ocorrencias[df_ocorrencias["Status"] == "Concluído"]
+        print(df_filtrado)
+    if escolha == 4:
+        escolha = int(input("ID da ocorrencia"))
+        df_ocorrencias = registro.listar()
+        df_filtrado = df_ocorrencias[df_ocorrencias["Id"] == escolha][["Descrição","Data"]]
+        print(df_filtrado)

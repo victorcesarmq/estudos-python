@@ -1,5 +1,5 @@
-import pandas as pd
+from main import *
 
 class Relatorio():
     def __init__(self):
-        self.
+        __super

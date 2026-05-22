@@ -1,0 +1,19 @@
+{
+    "CPF": "06716448152",
+    "Nome": "Victor Cesar",
+    "saldo": 5001.0,
+    "historico": [
+        {
+            "Id-transacao": 1,
+            "Valor": 5000.0,
+            "Data": "02/05/2026 20:07:13",
+            "Operacao": "Deposito"
+        },
+        {
+            "Id-transacao": 2,
+            "Valor": -1.0,
+            "Data": "08/05/2026 22:54:32",
+            "Operacao": "Saque"
+        }
+    ]
+}

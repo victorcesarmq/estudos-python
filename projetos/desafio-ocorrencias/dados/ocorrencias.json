@@ -1,0 +1,250 @@
+[
+    {
+        "Id": 1,
+        "tipo": "Roubo",
+        "local": null,
+        "descricao": "teste",
+        "data": "19/05/2022 11:04:42",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 2,
+        "tipo": "Furto",
+        "local": "Centro",
+        "descricao": "Furto de bicicleta em frente a padaria",
+        "data": "02/01/2021 08:15:21",
+        "status": "Concluído"
+    },
+    {
+        "Id": 3,
+        "tipo": "Acidente",
+        "local": "Avenida das Torres",
+        "descricao": "Colisão entre dois veículos",
+        "data": "05/01/2023 13:47:10",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 4,
+        "tipo": "Incêndio",
+        "local": "Bairro Jardim Primavera",
+        "descricao": "Incêndio em residência",
+        "data": "11/01/2020 22:22:09",
+        "status": "Pendente"
+    },
+    {
+        "Id": 5,
+        "tipo": "Vandalismo",
+        "local": "Praça Central",
+        "descricao": "Pichação em patrimônio público",
+        "data": "14/01/2024 19:01:55",
+        "status": "Concluído"
+    },
+    {
+        "Id": 6,
+        "tipo": "Roubo",
+        "local": "Mercado Popular",
+        "descricao": "Roubo de celular",
+        "data": "18/01/2025 15:34:18",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 7,
+        "tipo": "Agressão",
+        "local": "Rua 8",
+        "descricao": "Discussão terminou em agressão física",
+        "data": "23/01/2019 16:20:43",
+        "status": "Pendente"
+    },
+    {
+        "Id": 8,
+        "tipo": "Furto",
+        "local": "Shopping Norte",
+        "descricao": "Furto de bolsa em loja",
+        "data": "29/01/2022 17:11:30",
+        "status": "Concluído"
+    },
+    {
+        "Id": 9,
+        "tipo": "Acidente",
+        "local": "BR-163",
+        "descricao": "Motociclista caiu na pista",
+        "data": "03/02/2021 06:04:27",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 10,
+        "tipo": "Roubo",
+        "local": "Terminal Rodoviário",
+        "descricao": "Roubo de mochila",
+        "data": "09/02/2020 21:56:40",
+        "status": "Pendente"
+    },
+    {
+        "Id": 11,
+        "tipo": "Desaparecimento",
+        "local": "Bairro CPA",
+        "descricao": "Pessoa desaparecida desde a manhã",
+        "data": "12/02/2023 10:40:11",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 12,
+        "tipo": "Incêndio",
+        "local": "Depósito Industrial",
+        "descricao": "Fumaça intensa em galpão",
+        "data": "17/02/2024 20:13:09",
+        "status": "Concluído"
+    },
+    {
+        "Id": 13,
+        "tipo": "Vandalismo",
+        "local": "Escola Municipal",
+        "descricao": "Vidros quebrados durante a madrugada",
+        "data": "22/02/2021 04:02:48",
+        "status": "Pendente"
+    },
+    {
+        "Id": 14,
+        "tipo": "Roubo",
+        "local": "Posto de Combustível",
+        "descricao": "Assalto ao caixa",
+        "data": "28/02/2025 23:47:36",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 15,
+        "tipo": "Acidente",
+        "local": "Avenida Fernando Corrêa",
+        "descricao": "Batida envolvendo ônibus",
+        "data": "04/03/2022 12:14:22",
+        "status": "Concluído"
+    },
+    {
+        "Id": 16,
+        "tipo": "Furto",
+        "local": "Condomínio Solar",
+        "descricao": "Furto de equipamentos eletrônicos",
+        "data": "10/03/2018 02:58:41",
+        "status": "Pendente"
+    },
+    {
+        "Id": 17,
+        "tipo": "Agressão",
+        "local": "Bar do Centro",
+        "descricao": "Cliente agredido após discussão",
+        "data": "15/03/2024 00:19:50",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 18,
+        "tipo": "Roubo",
+        "local": "Rua das Palmeiras",
+        "descricao": "Roubo de motocicleta",
+        "data": "21/03/2020 18:05:12",
+        "status": "Concluído"
+    },
+    {
+        "Id": 19,
+        "tipo": "Tráfico",
+        "local": "Bairro Pedregal",
+        "descricao": "Denúncia de tráfico de drogas",
+        "data": "27/03/2023 01:11:44",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 20,
+        "tipo": "Incêndio",
+        "local": "Área Rural",
+        "descricao": "Queimada próxima a vegetação",
+        "data": "02/04/2019 14:24:09",
+        "status": "Pendente"
+    },
+    {
+        "Id": 21,
+        "tipo": "Acidente",
+        "local": "Ponte Sérgio Motta",
+        "descricao": "Veículo perdeu controle",
+        "data": "06/04/2021 03:16:55",
+        "status": "Concluído"
+    },
+    {
+        "Id": 22,
+        "tipo": "Furto",
+        "local": "Loja de Informática",
+        "descricao": "Notebook furtado",
+        "data": "11/04/2025 09:01:17",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 23,
+        "tipo": "Roubo",
+        "local": "Banco Regional",
+        "descricao": "Tentativa de assalto",
+        "data": "16/04/2020 05:22:49",
+        "status": "Pendente"
+    },
+    {
+        "Id": 24,
+        "tipo": "Agressão",
+        "local": "Praça Ipiranga",
+        "descricao": "Confusão entre grupos",
+        "data": "19/04/2022 20:40:33",
+        "status": "Concluído"
+    },
+    {
+        "Id": 25,
+        "tipo": "Desaparecimento",
+        "local": "Terminal CPA III",
+        "descricao": "Menor desaparecido",
+        "data": "23/04/2023 07:18:05",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 26,
+        "tipo": "Vandalismo",
+        "local": "Parque das Águas",
+        "descricao": "Danos em iluminação pública",
+        "data": "28/04/2024 18:29:56",
+        "status": "Pendente"
+    },
+    {
+        "Id": 27,
+        "tipo": "Incêndio",
+        "local": "Restaurante Popular",
+        "descricao": "Princípio de incêndio na cozinha",
+        "data": "03/05/2021 11:44:18",
+        "status": "Concluído"
+    },
+    {
+        "Id": 28,
+        "tipo": "Roubo",
+        "local": "Farmácia Central",
+        "descricao": "Assalto com arma branca",
+        "data": "07/05/2025 10:31:47",
+        "status": "Em andamento"
+    },
+    {
+        "Id": 29,
+        "tipo": "Furto",
+        "local": "Estacionamento do Shopping",
+        "descricao": "Furto de acessórios automotivos",
+        "data": "12/05/2020 15:09:03",
+        "status": "Concluído"
+    },
+    {
+        "Id": 30,
+        "tipo": "Acidente",
+        "local": "Avenida do CPA",
+        "descricao": "Engavetamento envolvendo três carros",
+        "data": "16/05/2024 12:48:26",
+        "status": "Pendente"
+    },
+    {
+        "Id": 31,
+        "tipo": "Tráfico",
+        "local": "Bairro Dom Aquino",
+        "descricao": "Movimentação suspeita denunciada",
+        "data": "20/05/2025 13:37:58",
+        "status": "Em andamento"
+    }
+]
