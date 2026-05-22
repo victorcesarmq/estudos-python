@@ -24,18 +24,18 @@ class Registro():
                     self.ocorrencias.append(oc)
 
 # ---------------------REGISTRA OCORRENCIA---------------------
-"""
-Adiciona uma ocorrência ao registro e gera um ID automaticamente.
-A ocorrência recebida deve ter seus atributos preenchidos.
-"""
+    """
+    Adiciona uma ocorrência ao registro e gera um ID automaticamente.
+    A ocorrência recebida deve ter seus atributos preenchidos.
+    """
     def adicionar(self, ocorrencia):
         ocorrencia.id = len(self.ocorrencias) + 1
         self.ocorrencias.append(ocorrencia)
 
 # ---------------------LISTAR OCORRENCIAS---------------------
-"""
-Retorna as ocorrências em formato DataFrame para geração de relatórios.
-"""
+    """
+    Retorna as ocorrências em formato DataFrame para geração de relatórios.
+    """
     def listar(self):
         if not self.ocorrencias:
             print("Nenhuma ocorrência cadastrada.")
@@ -56,10 +56,10 @@ Retorna as ocorrências em formato DataFrame para geração de relatórios.
         return df
 
 # ---------------------SALVAR OCORRENCIA---------------------
-"""
-Salva todas as ocorrências no arquivo JSON.
-Deve ser chamada após adicionar() para persistir os dados.
-"""
+    """
+    Salva todas as ocorrências no arquivo JSON.
+    Deve ser chamada após adicionar() para persistir os dados.
+    """
     def salvar(self):
         dados = []
 
