@@ -1,12 +1,14 @@
+import pandas as pd
+
 from registro import *
 
 class Relatorio():
     def __init__(self, registro):
         self.df_ocorrencias = registro
 #--------------------------------FILTROS PRONTOS--------------------------------
-"""
-Filtros ja prontos para serem usados. Inclui Ocorrencias concluidas e Em andamento
-"""
+    """
+    Filtros ja prontos para serem usados. Inclui Ocorrencias concluidas e Em andamento
+    """
     def ocorrencias_concluidas(self):
         df_ocorrencias = self.df_ocorrencias.listar()
         df_filtrado = df_ocorrencias[df_ocorrencias["Status"] == "Concluído"]
@@ -17,17 +19,17 @@ Filtros ja prontos para serem usados. Inclui Ocorrencias concluidas e Em andamen
         df_filtrado = df_ocorrencias[df_ocorrencias["Status"] == "Em andamento"]
         print(df_filtrado)
 
-#==================================================================================
+
 
 # ------------------------------FILTRO PERSONALIZADO-------------------------------
-"""
-Permite aplicar múltiplos filtros de forma acumulativa.
+    """
+    Permite aplicar múltiplos filtros de forma acumulativa.
 
-Obs: os valores informados devem ser idênticos aos presentes
-nas ocorrências cadastradas.
-"""
+    Obs: os valores informados devem ser idênticos aos presentes
+    nas ocorrências cadastradas.
+    """
     def filtro_personalizado(self):
-        df_filtrado = self.df_ocorrencias.listar()
+        df_filtrado: pd.DataFrame = self.df_ocorrencias.listar()
         while True:
             print("\nFiltros:")
             print("1. Status")
