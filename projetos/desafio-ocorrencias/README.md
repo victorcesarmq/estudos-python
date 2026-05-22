@@ -4,7 +4,7 @@ Sistema em linha de comando para registro, consulta e análise de ocorrências p
 
 ## 📋 Sobre o Projeto
 
-Inspirado diretamente na operação do **Programa Vigia Mais MT / SSP-MT**, este sistema simula o fluxo real de registro de ocorrências — desde o cadastro com local, data e tipo, até a consulta por filtros e geração de relatórios analíticos.
+Inspirado diretamente na operação do **CIOSP / SSP-MT**, este sistema simula o fluxo real de registro de ocorrências — desde o cadastro com local, data e tipo, até a consulta por filtros e geração de relatórios.
 
 O projeto foi desenvolvido como evolução do [Sistema Bancário Multi-Conta](https://github.com/victorcesarmq/estudos-python/tree/main/projetos/desafio-banco-multiconta), aplicando os mesmos conceitos de POO e persistência em um domínio mais próximo da experiência profissional do autor.
 
@@ -126,9 +126,6 @@ Filtros:
 - [ ] Encerrar ocorrência por ID
 - [ ] Busca por intervalo de datas
 - [ ] Exportação do relatório em CSV/Excel
-- [ ] Gráficos de distribuição por tipo e local com matplotlib
-- [ ] Armazenamento em nuvem (Google Cloud Storage)
-- [ ] Interface web com FastAPI
 
 ## 🧱 Arquitetura
 
@@ -143,7 +140,7 @@ O `Relatorio` recebe o objeto `Registro` já existente como parâmetro — sem d
 
 ## 👨‍💻 Contexto Profissional
 
-Este projeto é inspirado no trabalho operacional do **Programa Vigia Mais MT**, desenvolvido pela Multiway/Sentry em parceria com a SSP-MT, onde ocorrências como veículos irradiados, reconhecimentos faciais e mandados de prisão são registrados e monitorados em tempo real por operadores de videomonitoramento.
+Este projeto é inspirado no trabalho operacional da **CIOSP/Secretaria de Segurança Publica de Mato Grosso**, onde ocorrências como veículos irradiados, reconhecimentos faciais e mandados de prisão são registrados.
 
 A estrutura de dados e os tipos de ocorrência refletem cenários reais vivenciados durante o estágio técnico realizado no programa entre 2023 e 2025.
 
