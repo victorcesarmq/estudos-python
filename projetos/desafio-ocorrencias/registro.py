@@ -1,5 +1,4 @@
 from ocorrencia import Ocorrencia
-
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
@@ -16,27 +15,27 @@ class Registro():
 
                 for dados in data_ocorrencias:
                     oc = Ocorrencia()
-
                     oc.id = dados["Id"]
                     oc.tipo = dados["tipo"]
                     oc.local = dados["local"]
                     oc.status = dados["status"]
                     oc.descricao = dados["descricao"]
-                    oc.data = datetime.strptime(
-                        dados["data"],
-                        "%d/%m/%Y %H:%M:%S"
-                    )
-
+                    oc.data = datetime.strptime(dados["data"],"%d/%m/%Y %H:%M:%S")
                     self.ocorrencias.append(oc)
 
 # ---------------------REGISTRA OCORRENCIA---------------------
-
+"""
+Adiciona uma ocorrência ao registro e gera um ID automaticamente.
+A ocorrência recebida deve ter seus atributos preenchidos.
+"""
     def adicionar(self, ocorrencia):
         ocorrencia.id = len(self.ocorrencias) + 1
         self.ocorrencias.append(ocorrencia)
 
 # ---------------------LISTAR OCORRENCIAS---------------------
-
+"""
+Retorna as ocorrências em formato DataFrame para geração de relatórios.
+"""
     def listar(self):
         if not self.ocorrencias:
             print("Nenhuma ocorrência cadastrada.")
@@ -57,7 +56,10 @@ class Registro():
         return df
 
 # ---------------------SALVAR OCORRENCIA---------------------
-
+"""
+Salva todas as ocorrências no arquivo JSON.
+Deve ser chamada após adicionar() para persistir os dados.
+"""
     def salvar(self):
         dados = []
 
