@@ -5,7 +5,7 @@ class Relatorio():
         self.df_ocorrencias = registro
 #--------------------------------FILTROS PRONTOS--------------------------------
     """
-    Filtros ja prontos para serem usados. Inclui Ocorrencias concluidas e Em andamento
+    Filtros ja prontos para serem usados. Inclui Ocorrencias concluidas, Em andamento e Pendentes
     """
     def ocorrencias_concluidas(self):
         df_ocorrencias = self.df_ocorrencias.listar()
@@ -17,7 +17,10 @@ class Relatorio():
         df_filtrado = df_ocorrencias[df_ocorrencias["Status"] == "Em andamento"]
         print(df_filtrado)
 
-
+    def ocorrencias_pendentes(self):
+        df_filtrado = self.df_ocorrencias.listar()
+        df_filtrado = df_filtrado[df_filtrado["Status"] == "Pendente"]
+        print(df_filtrado)
 
 # ------------------------------FILTRO PERSONALIZADO-------------------------------
     """

@@ -75,3 +75,22 @@ class Registro():
 
         with open(self.arquivo, "w", encoding="utf-8") as f:
             json.dump(dados, f, indent=4, ensure_ascii=False)
+# ---------------------ENCERRAR OCORRENCIA---------------------
+    def encerrar(self):
+        while True:
+            encerrar_id = int(input("ID da ocorrencia que deseja encerrar: "))
+            encontrado = False
+            for oc in self.ocorrencias:
+                if oc.id == encerrar_id:
+                    if oc.status == "Em andamento":
+                        oc.status = "Concluído"
+                        encontrado = True
+                        self.salvar()
+                        print("Ocorrencia Finalizada com sucesso!")
+                        break
+                    elif oc.status == "Concluído":
+                        print("Ocorrencia ja concluida")
+                        encontrado = True
+            if not encontrado:
+                print("Nenhuma ocorrência com esse ID")
+            else: break

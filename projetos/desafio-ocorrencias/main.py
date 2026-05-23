@@ -11,8 +11,10 @@ while True:
     print("1. Cadastrar Ocorrencia")
     print("2. Ocorrencias Concluidas")
     print("3. Ocorrencias Em Andamento")
-    print("4. Filtro personalizado")
-    print("5. Sair")
+    print("4. Ocorrencias Pendentes")
+    print("5. Filtro personalizado")
+    print("6. Encerrar Ocorrencia")
+    print("0. Sair")
     escolha = int(input("Escolha: "))
     if escolha == 1:
         ocorrencia_registro = Ocorrencia()
@@ -28,6 +30,10 @@ while True:
     elif escolha == 3:
         relatorio.ocorrencias_andamento()
     elif escolha == 4:
-        relatorio.filtro_personalizado()
+        relatorio.ocorrencias_pendentes()
     elif escolha == 5:
+        relatorio.filtro_personalizado()
+    elif escolha == 6:
+        registro.encerrar()
+    elif escolha == 0:
         break

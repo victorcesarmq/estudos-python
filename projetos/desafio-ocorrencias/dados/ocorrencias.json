@@ -221,7 +221,7 @@
         "local": "Farmácia Central",
         "descricao": "Assalto com arma branca",
         "data": "07/05/2025 10:31:47",
-        "status": "Em andamento"
+        "status": "Concluído"
     },
     {
         "Id": 29,
@@ -245,6 +245,6 @@
         "local": "Bairro Dom Aquino",
         "descricao": "Movimentação suspeita denunciada",
         "data": "20/05/2025 13:37:58",
-        "status": "Em andamento"
+        "status": "Concluído"
     }
 ]

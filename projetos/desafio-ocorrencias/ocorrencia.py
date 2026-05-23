@@ -54,13 +54,13 @@ class Ocorrencia():
     def definir_status(self):
         while True:
             print("Defina o status da ocorrencia")
-            print("1 - Em andamento\n2 - Finalizada")
+            print("1 - Em andamento\n2 - Concluído")
             try:
                 opcao = int(input("Digite uma opcao: "))
                 if opcao == 1:
                     self.status = "Em andamento"
                 elif opcao == 2:
-                    self.status = "Finalizada"
+                    self.status = "Concluído"
                 else: raise ValueError
                 return
             except ValueError:
