@@ -123,7 +123,7 @@ Filtros:
 
 ## 🚧 Melhorias Futuras
 
-- [ ] Encerrar ocorrência por ID
+- [x] Encerrar ocorrência por ID
 - [ ] Busca por intervalo de datas
 - [ ] Exportação do relatório em CSV/Excel
 
