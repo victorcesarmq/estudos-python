@@ -53,7 +53,7 @@ desafio-ocorrencias/
 pip install pandas
 
 git clone https://github.com/victorcesarmq/estudos-python.git
-cd estudos-python/projetos/desafio-ocorrencias
+cd estudos-python/projetos/sistema-de-ocorrencias
 python main.py
 ```
 

@@ -49,7 +49,7 @@ desafio-banco-multiconta/
 git clone https://github.com/victorcesarmq/estudos-python.git
 
 # Acesse a pasta do projeto
-cd estudos-python/projetos/desafio-banco-multiconta
+cd estudos-python/projetos/sistema-banco-multiconta
 
 # Execute
 python banco-multiconta.py
