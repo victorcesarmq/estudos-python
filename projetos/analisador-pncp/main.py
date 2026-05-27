@@ -12,4 +12,5 @@ params = {
 
 r = requests.get(url, params=params, timeout=10)
 print(r.status_code)
+print(r.text)
 print(r.json())

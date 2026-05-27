@@ -6,7 +6,7 @@ import json
 
 class Registro():
     def __init__(self):
-        self.arquivo = Path(__file__).parent / "dados" / "ocorrencias.json"
+        self.arquivo = Path(__file__).parent / "dadosx" / "ocorrencias.json"
         self.ocorrencias = []
 
         if self.arquivo.exists() and self.arquivo.stat().st_size > 0:
@@ -58,7 +58,7 @@ class Registro():
 # ---------------------SALVAR OCORRENCIA---------------------
     """
     Salva todas as ocorrências no arquivo JSON.
-    Deve ser chamada após adicionar() para persistir os dados.
+    Deve ser chamada após adicionar() para persistir os dadosx.
     """
     def salvar(self):
         dados = []
