@@ -1,51 +1,52 @@
-# 📚 Estudos em Python
+# estudos-python
 
-Repositório dedicado ao registro da minha evolução em Python, com foco em lógica de programação, estrutura de dados e construção de pequenos projetos.
-
----
-
-## 🚀 Tecnologias
-
-* Python 3.14
-* Pandas
-* Datetime
-* JSON
-* Pathlib
+Registro da minha evolução em Python — da lógica básica a projetos aplicados em dados.
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura
 
 ```
-fundamentos/ → estudos da linguagem, exercícios e pequenos projetos
-hackerrank/easy/ → resolução de desafios da plataforma HackerRank
+fundamentos/          → exercícios e scripts de estudo
+hackerrank/           → desafios da plataforma
+projetos/
+  ├── sistema-banco-multiconta/   → sistema bancário com múltiplas contas e persistência
+  ├── sistema-de-ocorrencias/     → registro e análise de ocorrências com pandas
+  ├── Projeto_API_BCB/            → analisador de indicadores econômicos via API do BCB
+  └── analisador-pncp/            → análise de licitações públicas (em desenvolvimento)
 ```
 
 ---
 
-## 🧠 O que estou praticando
+## Projetos
 
-* Estruturas condicionais (if/else)
-* Laços de repetição (for/while)
-* Funções e escopo
-* Tratamento de erros (try/except)
-* Programação orientada a objetos (POO)
+### Sistema Bancário Multi-Conta
+Sistema em linha de comando com múltiplas contas por CPF, operações de depósito, saque e transferência, extrato com histórico e persistência automática em JSON.
 
----
-
-## 📌 Projetos/Exercicios em destaque
-
-* Sistema de conta bancária (depósito, saque e extrato)
-* (em breve mais projetos)
+`OOP` `herança` `pathlib` `datetime` `json`
 
 ---
 
-## 🎯 Objetivo
+### Sistema de Registro de Ocorrências
+Inspirado na operação do Programa Vigia Mais MT / SSP-MT. Cadastro de ocorrências com tipo, local, data e status. Filtros acumulativos e relatório com pandas.
 
-Desenvolver raciocínio lógico e evoluir para projetos mais complexos na área de dados e backend.
+`OOP` `pandas` `json` `separação de responsabilidades`
 
 ---
 
-## 📈 Status
+### Analisador de Indicadores Econômicos — BCB
+Consome a API pública do Banco Central do Brasil para buscar e analisar SELIC, IPCA e câmbio (PTAX). Estatísticas descritivas, cache local e simulador de rendimento em desenvolvimento.
 
-🚧 Tentando nao desistir
+`requests` `pandas` `PTAX` `matplotlib` `API REST`
+
+---
+
+## Stack
+
+Python 3.14 · Pandas · Matplotlib · Requests · Pathlib · JSON
+
+---
+
+## Status
+
+Em desenvolvimento contínuo.
