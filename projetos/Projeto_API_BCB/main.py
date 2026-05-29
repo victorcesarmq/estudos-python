@@ -1,6 +1,9 @@
 from coletor import Coletor
 from analisador import Analisador
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
 coletor = Coletor()
 analisador = Analisador()
 
@@ -21,7 +24,7 @@ while True:
     print("4. Histórico Câmbio")
     print("5. Comparativo SELIC vs IPCA")
     print("6. Simulador de rendimento")
-    print("7. Filtrar período")
+    print("7. Filtrar período - MIN/MEDIA/MAX")
     print("8. Exportar CSV")
     print("0. Sair")
     print("==============================")
@@ -39,18 +42,38 @@ while True:
 
         # HISTORICO SELIC
         elif opcao == 2:
-
-            print(analisador.df_selic_filtrado)
+            plt.style.use("seaborn-v0_8-darkgrid")
+            plt.plot(analisador.df_selic_filtrado["data"], analisador.df_selic_filtrado["valor"])
+            plt.title("SELIC — Taxa Diária")
+            plt.xlabel("Data")
+            plt.ylabel("Taxa (%)")
+            plt.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.show()
 
         # HISTORICO IPCA
         elif opcao == 3:
-
-            print(analisador.df_ipca_filtrado)
+            plt.style.use("seaborn-v0_8-darkgrid")
+            plt.plot(analisador.df_ipca_filtrado["data"], analisador.df_ipca_filtrado["valor"])
+            plt.title("IPCA — Taxa Diária")
+            plt.xlabel("Data")
+            plt.ylabel("Taxa (%)")
+            plt.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.show()
 
         # HISTORICO CÂMBIO
         elif opcao == 4:
-
-            print(analisador.df_cambio_filtrado)
+            plt.style.use("seaborn-v0_8-darkgrid")
+            plt.plot(analisador.df_cambio_filtrado["dataHoraCotacao"], analisador.df_cambio_filtrado["cotacaoCompra"], label="Compra", color="steelblue")
+            plt.plot(analisador.df_cambio_filtrado["dataHoraCotacao"], analisador.df_cambio_filtrado["cotacaoVenda"], label="Venda", color="tomato")
+            plt.legend()
+            plt.title("Taxa de Cambio Compra/Venda")
+            plt.xlabel("Data")
+            plt.ylabel("Taxa (%)")
+            plt.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.show()
 
         # COMPARATIVO
         elif opcao == 5:
@@ -103,6 +126,7 @@ while True:
 
                 # COTAÇÃO DE UM DIA
                 if tipo_consulta == "1":
+                    print(f"Entre {coletor.dataInicial} - {coletor.dataFinal}")
                     data_escolhida = input("Digite a data (DD/MM/AAAA): ")
 
                     data_escolhida = pd.to_datetime(data_escolhida, format="%d/%m/%Y")
@@ -119,7 +143,6 @@ while True:
                     else:
                         # Usa a ultima cotação do dia
                         cotacao = df_filtrado.iloc[-1]
-
                         if escolher_transacao == "1":
                             retorno_em_dollar = quantidade_em_reais / cotacao["cotacaoVenda"]
 
@@ -140,7 +163,7 @@ while True:
                 elif tipo_consulta == "2":
                     print("Formato DIA/MES/ANO")
                     print("Ex: 31/01/2024")
-
+                    print(f"Entre {coletor.dataInicial} - {coletor.dataFinal}")
                     dataInicial = input("Digite a data inicial: ")
                     dataFinal = input("Digite a data final: ")
 
@@ -174,11 +197,39 @@ while True:
                             print("Opcao invalida!")
                 else:
                     print("Opcao invalida!")
+            elif opcao_investimento == "2":
+                print(f"Filtrando entre {coletor.dataInicial} - {coletor.dataFinal}")
+                print("Para escolher outra data volte ao menu inicial e escolha a opcao 1")
+                quantidade_em_reais = int(input("Digite o valor inicial em R$: "))
+
+
+                #Calculo de juros compostos
+                fatores = 1 + (analisador.df_selic_filtrado["valor"] / 100)
+                fator_acumulado = fatores.prod()
+                valor_final = quantidade_em_reais * fator_acumulado
+                rendimento = valor_final - quantidade_em_reais
+
+                print(f"Valor final: R${valor_final:.2f}")
+                print(f"Rendimento: R${rendimento:.2f}")
+            elif opcao_investimento == "3":
+                print(f"Filtrando entre {coletor.dataInicial} - {coletor.dataFinal}")
+                print("Para escolher outra data volte ao menu inicial e escolha a opcao 1")
+                quantidade_em_reais = int(input("Digite o valor inicial em R$: "))
+
+                # Calculo de inflacao
+                fatores = 1 + (analisador.df_ipca_filtrado["valor"] / 100)
+                fator_acumulado = fatores.prod()
+                valor_final = quantidade_em_reais / fator_acumulado
+                rendimento = valor_final - quantidade_em_reais
+
+                print(f"Poder Final de compra: R${valor_final:.2f}")
+                print(f"Quantidade corroida pela inflacao: R${abs(rendimento):.2f}")
+
 
         # FILTRAR PERIODO
         elif opcao == 7:
             print("Formato DIA/MES/ANO")
-            print("Ex: 31/01/2024")
+            print(f"Entre {coletor.dataInicial} - {coletor.dataFinal}")
             dataInicial = input("Digite a data Inicial: ")
             dataFinal = input("Digite a data Final: ")
 

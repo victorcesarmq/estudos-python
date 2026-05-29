@@ -50,8 +50,9 @@ class Coletor:
             print("1. Usar período já carregado")
             print("2. Novo período")
 
-            print(f"Periodo Atual: {self.dataInicial.strftime('%d/%m/%Y')} - {self.dataFinal.strftime('%d/%m/%Y')}")
-
+            print("IMPORTANTE")
+            print(f"TODOS OS DADOS APRESENTADOS E SOLICITADOS DEVEM ESTAR ENTRE AS DATAS: {self.dataInicial.strftime('%d/%m/%Y')} - {self.dataFinal.strftime('%d/%m/%Y')}")
+            print("Caso queira um periodo diferente escolha a opcao 2")
         else:
 
             print("Nenhum periodo definido!")
