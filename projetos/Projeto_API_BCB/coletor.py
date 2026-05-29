@@ -2,9 +2,7 @@ import requests
 import pandas as pd
 import json
 import datetime as dt
-
 from pathlib import Path
-
 
 class Coletor:
 

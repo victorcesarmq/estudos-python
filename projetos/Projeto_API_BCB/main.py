@@ -2,7 +2,6 @@ from coletor import Coletor
 from analisador import Analisador
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 coletor = Coletor()
 analisador = Analisador()

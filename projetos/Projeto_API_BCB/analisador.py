@@ -1,161 +1,239 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
 from pandas import DataFrame
 import json
 
 
-class Analisador():
+
+class Analisador:
+
     def __init__(self):
+
+        # Caminho da pasta de dados
         self.path = Path("dados")
 
-        #Datas
+        # Datas do filtro atual
         self.dataInicial = None
         self.dataFinal = None
 
-        # DataFrames
-        self.indicador_economico: DataFrame = None
+        # DataFrames originais
         self.df_cambio: DataFrame = None
         self.df_selic: DataFrame = None
         self.df_ipca: DataFrame = None
 
-        # Medias
+        # DataFrames filtrados
+        self.df_cambio_filtrado: DataFrame = None
+        self.df_selic_filtrado: DataFrame = None
+        self.df_ipca_filtrado: DataFrame = None
+
+        # DataFrame selecionado
+        self.indicador_economico: DataFrame = None
+
+        # Estatísticas IPCA
         self.media_ipca = None
+        self.min_ipca = None
+        self.max_ipca = None
+        self.desvio_ipca = None
+
+        # Estatísticas SELIC
         self.media_selic = None
+        self.min_selic = None
+        self.max_selic = None
+        self.desvio_selic = None
+
+        # Estatísticas Câmbio
         self.cambio_mediacompra = None
         self.cambio_mediavenda = None
 
-        #Minimas
-        self.min_ipca = None
-        self.min_selic = None
-        self.cambio_minvenda = None
         self.cambio_mincompra = None
+        self.cambio_minvenda = None
 
-        #Maximas
-        self.max_ipca = None
-        self.max_selic = None
         self.cambio_maxcompra = None
         self.cambio_maxvenda = None
 
-        #Desvio Padrao
-        self.ipca_desvio = None
-        self.selic_desvio = None
-        self.cambio_vendadesvio = None
         self.cambio_compradesvio = None
+        self.cambio_vendadesvio = None
 
+    # CARREGA JSONS
     def carregar_dados(self):
-        #IPCA
-        with open("dados/dados_ipca.json", "r") as ipca:
+
+        # IPCA
+        with open(self.path / "dados_ipca.json", "r") as ipca:
+
             dados_ipca = json.load(ipca)
-            self.df_ipca = pd.DataFrame(dados_ipca.values())
-            self.df_ipca["data"] = pd.to_datetime(self.df_ipca["data"],format="%d/%m/%Y")
 
-            # media
-            self.media_ipca = self.df_ipca["valor"].mean()
+            self.df_ipca = pd.DataFrame(list(dados_ipca.values()))
 
-            # Max
-            self.max_ipca = self.df_ipca["valor"].max()
+            self.df_ipca["data"] = pd.to_datetime(self.df_ipca["data"])
 
-            # Min
-            self.min_ipca = self.df_ipca["valor"].min()
+        # CÂMBIO
+        with open(self.path / "dados_cambio.json", "r") as cambio:
 
-            #Desvio
-            self.desvio_ipca = self.df_ipca["valor"].std()
-            print("-----------IPCA-----------")
-            print(f"Media:{self.media_ipca:.4f}")
-            print(f"Minimo:{self.min_ipca:.4f}")
-            print(f"Maxima:{self.max_ipca:.4f}")
-            print(f"Desvio padrao:{self.desvio_ipca:.4f}")
-
-        #Cambio
-        with open("dados/dados_cambio.json", "r") as cambio:
             dados_cambio = json.load(cambio)
-            self.df_cambio = pd.DataFrame(dados_cambio.values())
 
-            #media
-            self.cambio_mediacompra = self.df_cambio["cotacaoCompra"].mean()
-            self.cambio_mediavenda = self.df_cambio["cotacaoVenda"].mean()
+            self.df_cambio = pd.DataFrame(list(dados_cambio.values()))
 
-            #Max
-            self.cambio_maxcompra = self.df_cambio["cotacaoCompra"].max()
-            self.cambio_maxvenda = self.df_cambio["cotacaoVenda"].max()
+            self.df_cambio["dataHoraCotacao"] = pd.to_datetime(self.df_cambio["dataHoraCotacao"])
 
-            #Min
-            self.cambio_mincompra = self.df_cambio["cotacaoCompra"].min()
-            self.cambio_minvenda = self.df_cambio["cotacaoVenda"].min()
+        # SELIC
+        with open(self.path / "dados_selic.json", "r") as selic:
 
-            #Desvio
-            self.cambio_vendadesvio = self.df_cambio["cotacaoVenda"].std()
-            self.cambio_compradesvio = self.df_cambio["cotacaoCompra"].std()
-            print("-----------CAMBIO-----------")
-            print(f"Valor MEDIO de Compra: {self.cambio_mediacompra:.4f}")
-            print(f"Valor MEDIO de Venda: {self.cambio_mediavenda:.4f}")
-            print(f"Valor Minimo de Compra: {self.cambio_mincompra:.4f}")
-            print(f"Valor Minimo de Venda: {self.cambio_minvenda:.4f}")
-            print(f"Desvio padrao de Compra: {self.cambio_vendadesvio:.4f}")
-            print(f"Desvio padrao de Venda:{self.cambio_compradesvio:.4f}")
-
-        #Selic
-        with open("dados/dados_selic.json", "r") as selic:
             dados_selic = json.load(selic)
-            self.df_selic = pd.DataFrame(dados_selic.values())
-            self.df_selic["data"] = pd.to_datetime(self.df_selic["data"],format="%d/%m/%Y")
 
-            # media
-            self.media_selic = self.df_selic["valor"].mean()
+            self.df_selic = pd.DataFrame(list(dados_selic.values()))
 
-            # Max
-            self.max_selic = self.df_selic["valor"].max()
+            self.df_selic["data"] = pd.to_datetime(self.df_selic["data"])
 
-            # Min
-            self.min_selic = self.df_selic["valor"].min()
+        # Copias iniciais
+        self.df_ipca_filtrado = self.df_ipca.copy()
 
-            # Desvio
-            self.desvio_selic = self.df_selic["valor"].std()
+        self.df_selic_filtrado = self.df_selic.copy()
 
-            print("-----------SELIC-----------")
-            print(f"Media:{self.media_selic:.4f}")
-            print(f"Minimo:{self.min_selic:.4f}")
-            print(f"Maxima:{self.max_selic:.4f}")
-            print(f"Desvio padrao:{self.desvio_selic:.4f}")
+        self.df_cambio_filtrado = self.df_cambio.copy()
 
-        return self.df_ipca,self.df_cambio,self.df_selic
+        # Estatísticas
+        self.calcular_estatisticas()
 
+        return self.df_ipca, self.df_cambio, self.df_selic
+
+    # CALCULA ESTATÍSTICAS
+    def calcular_estatisticas(self):
+
+        # IPCA
+        self.media_ipca = self.df_ipca_filtrado["valor"].mean()
+
+        self.min_ipca = self.df_ipca_filtrado["valor"].min()
+
+        self.max_ipca = self.df_ipca_filtrado["valor"].max()
+
+        self.desvio_ipca = self.df_ipca_filtrado["valor"].std()
+
+        # SELIC
+        self.media_selic = self.df_selic_filtrado["valor"].mean()
+
+        self.min_selic = self.df_selic_filtrado["valor"].min()
+
+        self.max_selic = self.df_selic_filtrado["valor"].max()
+
+        self.desvio_selic = self.df_selic_filtrado["valor"].std()
+
+        # CÂMBIO
+        self.cambio_mediacompra = self.df_cambio_filtrado["cotacaoCompra"].mean()
+
+        self.cambio_mediavenda = self.df_cambio_filtrado["cotacaoVenda"].mean()
+
+        self.cambio_mincompra = self.df_cambio_filtrado["cotacaoCompra"].min()
+
+        self.cambio_minvenda = self.df_cambio_filtrado["cotacaoVenda"].min()
+
+        self.cambio_maxcompra = self.df_cambio_filtrado["cotacaoCompra"].max()
+
+        self.cambio_maxvenda = self.df_cambio_filtrado["cotacaoVenda"].max()
+
+        self.cambio_compradesvio = self.df_cambio_filtrado["cotacaoCompra"].std()
+
+        self.cambio_vendadesvio = self.df_cambio_filtrado["cotacaoVenda"].std()
+
+        # PRINTs
+
+        print("-----------IPCA-----------")
+        print(f"Media: {self.media_ipca:.4f}")
+        print(f"Minimo: {self.min_ipca:.4f}")
+        print(f"Maxima: {self.max_ipca:.4f}")
+        print(f"Desvio padrao: {self.desvio_ipca:.4f}")
+
+        print("-----------CAMBIO-----------")
+        print(f"Valor MEDIO Compra: {self.cambio_mediacompra:.4f}")
+        print(f"Valor MEDIO Venda: {self.cambio_mediavenda:.4f}")
+        print(f"Valor Minimo Compra: {self.cambio_mincompra:.4f}")
+        print(f"Valor Minimo Venda: {self.cambio_minvenda:.4f}")
+        print(f"Desvio Compra: {self.cambio_compradesvio:.4f}")
+        print(f"Desvio Venda: {self.cambio_vendadesvio:.4f}")
+
+        print("-----------SELIC-----------")
+        print(f"Media: {self.media_selic:.4f}")
+        print(f"Minimo: {self.min_selic:.4f}")
+        print(f"Maxima: {self.max_selic:.4f}")
+        print(f"Desvio padrao: {self.desvio_selic:.4f}")
+
+    # ESCOLHER DATAFRAME
     def escolher_DataFrame(self):
+
         while True:
-            print("1. Selic\n2. IPCA\n3. Cambio")
+
+            print("1. Selic")
+            print("2. IPCA")
+            print("3. Cambio")
+
             escolha_df = input("Escolha o Indicador Economico: ").strip().lower()
+
             try:
+
                 if escolha_df in ["1", "selic"]:
-                    self.indicador_economico = self.df_selic
+
+                    self.indicador_economico = self.df_selic_filtrado
+
                     break
+
                 elif escolha_df in ["2", "ipca"]:
-                    self.indicador_economico = self.df_ipca
+
+                    self.indicador_economico = self.df_ipca_filtrado
+
                     break
+
                 elif escolha_df in ["3", "cambio"]:
-                    self.indicador_economico = self.df_cambio
+
+                    self.indicador_economico = self.df_cambio_filtrado
+
                     break
-                else: raise ValueError
+
+                else:
+                    raise ValueError
+
             except ValueError:
-                print("\nOPÇÃO INVÁLIDA! Tente novamente.")
+
+                print("\nOPÇÃO INVÁLIDA!")
+
         return self.indicador_economico
 
-    def definir_periodo(self,dataInicial=None,dataFinal=None,):
-        print("Formato DIA/MES/ANO\nex: 31/01/2021")
-        dataInicial = input("Digite a data Inicial: ")
-        dataFinal = input("Digite a data Final: ")
+    # FILTRAR PERÍODO
+    def filtrar_periodo(self, dataInicial, dataFinal):
 
-        #Datetime Pandas
-        dataInicial = pd.to_datetime(dataInicial)
-        dataFinal = pd.to_datetime(dataFinal)
+        try:
 
-        self.dataInicial = dataInicial
-        self.dataFinal = dataFinal
-        return dataInicial,dataFinal
+            self.dataInicial = pd.to_datetime(dataInicial, format="%d/%m/%Y")
 
+            self.dataFinal = pd.to_datetime(dataFinal, format="%d/%m/%Y") + pd.Timedelta(days=1)
+
+            # SELIC
+            self.df_selic_filtrado = self.df_selic[(self.df_selic["data"] >= self.dataInicial) &(self.df_selic["data"] <= self.dataFinal)]
+
+            # IPCA
+            self.df_ipca_filtrado = self.df_ipca[(self.df_ipca["data"] >= self.dataInicial) & (self.df_ipca["data"] <= self.dataFinal)]
+
+            # CÂMBIO
+            self.df_cambio_filtrado = self.df_cambio[(self.df_cambio["dataHoraCotacao"] >= self.dataInicial) & (self.df_cambio["dataHoraCotacao"] <= self.dataFinal)]
+
+            # Recalcula estatísticas
+            self.calcular_estatisticas()
+
+            print(f"Periodo filtrado:{self.dataInicial.strftime('%d/%m/%Y')} até {(self.dataFinal - pd.Timedelta(days=1)).strftime('%d/%m/%Y')}")
+
+        except ValueError:
+
+            print("DATA INVALIDA!")
+
+        except Exception as erro:
+
+            print(f"Erro ao filtrar periodo: {erro}")
+
+    # EXPORTAR CSV
     def exportar_csv(self):
-        selic_excel
-        ipca_excel
-        cambio_excel
-        pass
+
+        self.df_selic_filtrado.to_csv(self.path / "selic_filtrado.csv", index=False)
+
+        self.df_ipca_filtrado.to_csv(self.path / "ipca_filtrado.csv", index=False)
+
+        self.df_cambio_filtrado.to_csv(self.path / "cambio_filtrado.csv", index=False)
+
+        print("CSV exportado com sucesso!")
