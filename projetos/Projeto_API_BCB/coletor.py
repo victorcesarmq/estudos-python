@@ -62,9 +62,6 @@ class Coletor:
         print("Formato DIA/MES/ANO")
         print("ex: 31/01/2021")
 
-        # ALTERAÇÃO:
-        # Sempre pede novamente os valores
-        # para evitar loop infinito após erro
         dataInicial = input("Digite a data inicial: ")
 
         dataFinal = input("Digite a data final: ")
@@ -206,9 +203,6 @@ class Coletor:
                 # NOVO PERÍODO
                 elif escolha == "2":
 
-                    # ALTERAÇÃO:
-                    # Sempre solicita novamente as datas
-                    # para evitar reutilizar valores inválidos
                     dataInicial, dataFinal = self.solicitar_datas()
 
                     # Converte datas
