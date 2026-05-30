@@ -2,6 +2,7 @@ from coletor import Coletor
 from analisador import Analisador
 import pandas as pd
 import matplotlib.pyplot as plt
+import datetime as dt
 
 coletor = Coletor()
 analisador = Analisador()
@@ -227,8 +228,8 @@ while True:
 
         # FILTRAR PERIODO
         elif opcao == 7:
-            print("Formato DIA/MES/ANO")
-            print(f"Entre {coletor.dataInicial} - {coletor.dataFinal}")
+            coletor.carregar_periodo_existente()
+            print(f"Deve ser entre {coletor.dataInicial.strftime('%d/%m/%Y')} - {coletor.dataFinal.strftime('%d/%m/%Y')}")
             dataInicial = input("Digite a data Inicial: ")
             dataFinal = input("Digite a data Final: ")
 

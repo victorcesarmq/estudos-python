@@ -217,7 +217,7 @@ class Analisador:
             # Recalcula estatísticas
             self.calcular_estatisticas()
 
-            print(f"Periodo filtrado:{self.dataInicial.strftime('%d/%m/%Y')} até {(self.dataFinal - pd.Timedelta(days=1)).strftime('%d/%m/%Y')}")
+            print(f"Periodo filtrado: {self.dataInicial.strftime('%d/%m/%Y')} até {(self.dataFinal - pd.Timedelta(days=1)).strftime('%d/%m/%Y')}")
 
         except ValueError:
 
