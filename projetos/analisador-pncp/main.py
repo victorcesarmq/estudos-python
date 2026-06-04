@@ -1,5 +1,6 @@
-from coletor import coletor
+from coletor import Coletor
 
-coletor = coletor()
+coletor = Coletor()
 
-coletor.coletar_dados()
+coletor.solicitar_parametros()
+coletor.coletar_todas_paginas()
