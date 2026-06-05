@@ -77,17 +77,11 @@ class Coletor:
                 print(todos_dados)
 
                 if dados.get("paginasRestantes", 0) == 0:
-                    df_dados = pd.DataFrame(todos_dados)
-                    df_dados.to_json("./dados/dados_teste.json",
-                                     orient="records",
-                                     date_format="iso",
-                                     indent=4,
-                                     force_ascii=False
-                                     )
+                    df_dados = pd.json_normalize(todos_dados)
                     break
                 pagina += 1
                 time.sleep(0.5)
             else:
                 print(f"Erro: {r.status_code}")
-
+        return df_dados
 
