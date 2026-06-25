@@ -74,13 +74,12 @@ class Coletor:
             if r.status_code == 200:
                 dados = r.json()
                 todos_dados.extend(dados.get("data", []))
-                print(todos_dados)
 
                 if dados.get("paginasRestantes", 0) == 0:
                     df_dados = pd.json_normalize(todos_dados)
                     break
                 pagina += 1
-                time.sleep(0.5)
+                time.sleep(1)
             else:
                 print(f"Erro: {r.status_code}")
         return df_dados
