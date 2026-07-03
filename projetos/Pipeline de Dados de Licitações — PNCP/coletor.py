@@ -18,13 +18,6 @@ class Coletor:
         self.codigoModalidadeContratacao = None
         self.uf = None
 
-    def verificar_cache(self):
-        return Path("dados/dados_teste.json").exists()
-
-    def definir_url(self):
-        url = "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao"
-        return url
-
     def solicitar_parametros(self):
 
         print("ANO/MES/DIA")
@@ -65,7 +58,7 @@ class Coletor:
             params["pagina"] = pagina
 
             r = requests.get(
-                self.definir_url(),
+                "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
                 params=params,
                 timeout=30
             )
@@ -81,6 +74,6 @@ class Coletor:
                 pagina += 1
                 time.sleep(1)
             else:
-                print(f"Erro: {r.status_code}")
+                print(f"Erro {r.status_code}: {r.text}")
         return df_dados
 
