@@ -52,28 +52,34 @@ class Coletor:
     def coletar_todas_paginas(self):
         pagina = 1
         todos_dados = []
+        try:
+            while True:
+                params = self.params_url()
+                params["pagina"] = pagina
 
-        while True:
-            params = self.params_url()
-            params["pagina"] = pagina
+                r = requests.get(
+                    "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+                    params=params,
+                    timeout=30
+                )
 
-            r = requests.get(
-                "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
-                params=params,
-                timeout=30
-            )
-            print(r.status_code)
-            print(r.text)
-            if r.status_code == 200:
-                dados = r.json()
-                todos_dados.extend(dados.get("data", []))
+                if r.status_code == 200:
+                    dados = r.json()
+                    todos_dados.extend(dados.get("data", []))
 
-                if dados.get("paginasRestantes", 0) == 0:
-                    df_dados = pd.json_normalize(todos_dados)
+                    if dados.get("paginasRestantes", 0) == 0:
+                        df_dados = pd.json_normalize(todos_dados)
+                        break
+                    pagina += 1
+                    time.sleep(1)
+                elif r.status_code == 204:
+                    print('Sem dados para o periodo informado')
+                else:
+                    print(f"Erro {r.status_code}: {r.text}")
                     break
-                pagina += 1
-                time.sleep(1)
-            else:
-                print(f"Erro {r.status_code}: {r.text}")
+        except requests.exceptions.Timeout:
+            print('A API do PNCP esta fora do ar no momento')
+            df = pd.DataFrame()
+            return df
         return df_dados
 

@@ -8,6 +8,9 @@ class Banco:
     def iniciar_banco(self):
         pass
     def criar_tabela(self):
+        self.cursor.execute(
+            '''CREATE TABLE if not exists licitacoes
+                                ''')
         pass
     def inserir_licitacoes(self, df):
         for col in df.columns:
