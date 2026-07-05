@@ -47,6 +47,20 @@ classDiagram
     Banco --> Analisador : consultas SQL
 ```
 
+## Utils
+Tratamento de Errors e verificacoes em DataFrames
+
+```python
+def empty(df): # Verica se o DataFrame esta vazio e retorna True/False
+    return df.empty
+    
+def lenz(df): # Verica a quantidade de linha do DataFrame e caso seja igual zero e retorna True/False
+    return len(df) == 0
+
+def lenzi(df):    #Verifica se a quantidade de indices do DataFrame e igual a zero e retorna True/False
+    return len(df.index) == 0
+```
+
 ## Paginação
 
 A API limita 50 registros por requisição. O loop usa `paginasRestantes` da resposta:
