@@ -53,7 +53,7 @@ class Coletor:
     def coletar_todas_paginas(self):
         pagina = 1
         todos_dados = []
-        
+
         try:
             while True:
                 params = self.params_url()
@@ -64,23 +64,25 @@ class Coletor:
                     params=params,
                     timeout=30
                 )
-
+                r.raise_for_status()
+                print(r.status_code)
                 if r.status_code == 200:
                     dados = r.json()
                     todos_dados.extend(dados.get("data", []))
-
                     if dados.get("paginasRestantes", 0) == 0:
                         df_dados = pd.json_normalize(todos_dados)
+                        df_dados.to_json(f"./dados/df_dados", orient='records', date_format="iso", indent=4)
                         break
                     pagina += 1
                     time.sleep(1)
+
                 elif r.status_code == 204:
                     print('Sem dados para o periodo informado')
-                    df = pd.DataFrame()
-                    return df
+                    df_dados = pd.DataFrame()
+                    return df_dados
         except requests.exceptions.RequestException as e:
             print(f"Erro na requisição: {e}")
-            df = pd.DataFrame()
-            return df
+            df_dados = pd.DataFrame()
+            return df_dados
         return df_dados
 
