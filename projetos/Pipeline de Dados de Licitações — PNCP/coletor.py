@@ -5,6 +5,7 @@ import pandas as pd
 import sqlite3
 from pathlib import Path
 import time
+import utils
 
 class Coletor:
     def __init__(self):
@@ -75,11 +76,10 @@ class Coletor:
                     time.sleep(1)
                 elif r.status_code == 204:
                     print('Sem dados para o periodo informado')
-                else:
-                    print(f"Erro {r.status_code}: {r.text}")
-                    break
-        except requests.exceptions.Timeout:
-            print('A API do PNCP esta fora do ar no momento')
+                    df = pd.DataFrame()
+                    return df
+        except requests.exceptions.RequestException as e:
+            print(f"Erro na requisição: {e}")
             df = pd.DataFrame()
             return df
         return df_dados

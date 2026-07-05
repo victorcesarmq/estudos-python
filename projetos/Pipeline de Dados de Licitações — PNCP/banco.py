@@ -1,6 +1,9 @@
 import sqlite3
 import utils
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 class Banco:
     def __init__(self):
         self.conectar = sqlite3.connect("dados/pncp.db")
@@ -15,7 +18,11 @@ class Banco:
         pass
     def inserir_licitacoes(self, df):
         if utils.empty(df):
+<<<<<<< Updated upstream
             print("Sem dados para colocar no banco")
+=======
+            print("Sem dados para o banco")
+>>>>>>> Stashed changes
         else:
             for col in df.columns:
                 if df[col].apply(lambda x: isinstance(x, (list, dict))).any():
