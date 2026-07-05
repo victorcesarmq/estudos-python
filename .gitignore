@@ -1,0 +1,23 @@
+# Pastas do ambiente de desenvolvimento (IDE)
+.idea/
+.vscode/
+
+# Python: Cache e arquivos compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Bancos de dados locais (sqlite, etc)
+*.db
+*.sqlite
+*.json
+
+# Ambientes virtuais (muito importante!)
+venv/
+env/
+.env/
+.venv/
+
+# Arquivos de sistema
+.DS_Store
