@@ -1,4 +1,5 @@
 import sqlite3
+import utils
 
 class Banco:
     def __init__(self):
@@ -13,8 +14,11 @@ class Banco:
                                 ''')
         pass
     def inserir_licitacoes(self, df):
-        for col in df.columns:
-            if df[col].apply(lambda x: isinstance(x, (list, dict))).any():
-                df[col] = df[col].astype(str)
-        df.to_sql("licitacoes", self.conectar, if_exists="replace", index=False)
-        self.conectar.commit()
+        if utils.empty(df):
+            print("Sem dados para colocar no banco")
+        else:
+            for col in df.columns:
+                if df[col].apply(lambda x: isinstance(x, (list, dict))).any():
+                    df[col] = df[col].astype(str)
+            df.to_sql("licitacoes", self.conectar, if_exists="replace", index=False)
+            self.conectar.commit()

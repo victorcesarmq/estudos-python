@@ -52,6 +52,7 @@ class Coletor:
     def coletar_todas_paginas(self):
         pagina = 1
         todos_dados = []
+        
         try:
             while True:
                 params = self.params_url()
