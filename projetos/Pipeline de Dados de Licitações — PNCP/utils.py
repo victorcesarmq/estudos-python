@@ -1,10 +1,10 @@
-
+import pandas as pd
 
 #-------------------------------------------------------------
 '''
 Tratamento de Erros e verificacoes em DataFrames
 '''
-def empty(df):
+def empty(df: pd.DataFrame):
     return df.empty
 
 def lenz(df):
