@@ -6,8 +6,9 @@
 pipeline-pncp/
 ├── main.py          → menu principal e fluxo
 ├── coletor.py       → coleta via API + paginação
-├── banco.py         → CRUD com SQLite
-├── analisador.py    → consultas SQL + pandas + exportação
+├── banco.py         → CRUD + consultas SQL (a "inteligência" das perguntas)
+├── analisador.py    → formatação + exportação (usa o que o Banco já calculou)
+├── utils.py         → funções auxiliares reutilizáveis
 └── dados/
     └── pncp.db      → banco SQLite
 ```
@@ -15,7 +16,20 @@ pipeline-pncp/
 ## Fluxo de dados
 
 ```
-API PNCP → Coletor → pd.json_normalize() → Banco (SQLite) → Analisador → Output
+API PNCP → Coletor → pd.json_normalize() → Banco (SQL) → Analisador (formata/exporta) → Output
+```
+
+## Divisão de responsabilidade — Banco vs Analisador
+
+consultas complexas (agrupamentos, rankings, filtros) são feitas via **SQL dentro do Banco**, não recalculadas em pandas dentro do Analisador. Isso evita fazer o mesmo trabalho duas vezes e aproveita que o SQLite já otimiza `GROUP BY`/`ORDER BY` internamente, sem precisar carregar todas as linhas para a memória do Python antes de agrupar.
+
+```
+Banco       → executa a query SQL pesada e devolve o resultado já resumido
+               (ex: só os 10 órgãos do topo, não as 29 mil linhas inteiras)
+
+Analisador  → recebe o resultado pronto
+               → decide como apresentar (print formatado, gráfico, CSV/Excel)
+               → não recalcula nada — só usa o que já veio calculado
 ```
 
 ## Diagrama de classes
@@ -33,31 +47,30 @@ classDiagram
         +consultar_top_orgaos(n)
         +consultar_top_valores(n)
         +consultar_por_municipio()
+        +resumo_por_modalidade()
         +contar_registros()
     }
     class Analisador {
-        +carregar_dados()
-        +resumo_por_modalidade()
-        +top_orgaos(n)
-        +maiores_valores(n)
-        +exportar_csv()
-        +exportar_excel()
+        +exportar_csv(df)
+        +exportar_excel(df)
+        +formatar_resultado(df)
     }
     Coletor --> Banco : DataFrame coletado
-    Banco --> Analisador : consultas SQL
+    Banco --> Analisador : resultado já calculado
 ```
 
 ## Utils
-Tratamento de Errors e verificacoes em DataFrames
+
+Tratamento de erros e verificações em DataFrames — funções soltas, reutilizáveis por qualquer classe (não pertencem a nenhuma delas especificamente):
 
 ```python
-def empty(df): # Verica se o DataFrame esta vazio e retorna True/False
+def empty(df): # Verifica se o DataFrame está vazio e retorna True/False
     return df.empty
-    
-def lenz(df): # Verica a quantidade de linha do DataFrame e caso seja igual zero e retorna True/False
+
+def lenz(df): # Verifica se a quantidade de linhas do DataFrame é zero e retorna True/False
     return len(df) == 0
 
-def lenzi(df):    #Verifica se a quantidade de indices do DataFrame e igual a zero e retorna True/False
+def lenzi(df): # Verifica se a quantidade de índices do DataFrame é zero e retorna True/False
     return len(df.index) == 0
 ```
 
@@ -98,7 +111,7 @@ CREATE TABLE IF NOT EXISTS licitacoes (
 );
 ```
 
-## Consultas SQL principais
+## Consultas SQL principais (vivem no Banco)
 
 ```sql
 -- Top 10 órgãos que mais licitaram
@@ -119,6 +132,12 @@ LIMIT 10;
 SELECT unidadeOrgao_municipioNome, COUNT(*) as total
 FROM licitacoes
 GROUP BY unidadeOrgao_municipioNome
+ORDER BY total DESC;
+
+-- Resumo por modalidade
+SELECT modalidadeNome, COUNT(*) as total, SUM(valorTotalEstimado) as valor_total
+FROM licitacoes
+GROUP BY modalidadeNome
 ORDER BY total DESC;
 
 -- Filtro por período
