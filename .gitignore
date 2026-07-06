@@ -21,3 +21,4 @@ env/
 
 # Arquivos de sistema
 .DS_Store
+.gitignore
