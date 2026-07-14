@@ -31,11 +31,17 @@ class Analisador:
         print(df)
 
     def consultar_por_municipio(self,dados_brutos):
-        colunas = ["Orgao", "Valor Estimado", "Valor Homologado", "Municipio"]
-        df = pd.DataFrame(dados_brutos, columns=colunas)
-        df['Valor Estimado'] = df['Valor Estimado'].apply(lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
-        df['Valor Homologado'] = df['Valor Homologado'].apply(lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
-        pd.set_option('display.max_columns', None)
-        pd.set_option('display.max_rows', None)
-        pd.set_option('display.width', 1000)
-        pd.set_option('display.max_colwidth', None)
+        if dados_brutos is not None and not dados_brutos.empty:
+            print("O DataFrame existe e possui dados!")
+            colunas = ["Orgao", "Valor Estimado", "Valor Homologado", "Municipio"]
+            df = pd.DataFrame(dados_brutos, columns=colunas)
+            df['Valor Estimado'] = df['Valor Estimado'].apply(lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            df['Valor Homologado'] = df['Valor Homologado'].apply(lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            pd.set_option('display.max_columns', None)
+            pd.set_option('display.max_rows', None)
+            pd.set_option('display.width', 1000)
+            pd.set_option('display.max_colwidth', None)
+            print(df)
+        else:
+            print("O DataFrame é None ou está vazio.")
+            return
