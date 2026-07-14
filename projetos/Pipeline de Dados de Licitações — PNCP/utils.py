@@ -2,7 +2,7 @@ import pandas as pd
 
 #-------------------------------------------------------------
 '''
-Tratamento de Erros e verificacoes em DataFrames
+Verificações em DataFrames
 '''
 def empty(df: pd.DataFrame):
     return df.empty
