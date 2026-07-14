@@ -53,6 +53,7 @@ class Coletor:
     def coletar_todas_paginas(self):
         pagina = 1
         todos_dados = []
+        df_dados = pd.DataFrame()
 
         try:
             while True:
@@ -66,6 +67,7 @@ class Coletor:
                 )
                 r.raise_for_status()
                 print(r.status_code)
+
                 if r.status_code == 200:
                     dados = r.json()
                     todos_dados.extend(dados.get("data", []))
@@ -78,11 +80,22 @@ class Coletor:
 
                 elif r.status_code == 204:
                     print('Sem dados para o periodo informado')
-                    df_dados = pd.DataFrame()
                     return df_dados
+
+        except requests.exceptions.HTTPError as e:
+            print(f"Erro HTTP: {e}")
+            return df_dados
+
+        except requests.exceptions.ConnectionError as e:
+            print(f"Erro de conexão: {e}")
+            return df_dados
+
+        except requests.exceptions.Timeout as e:
+            print(f"Timeout na requisição: {e}")
+            return df_dados
+
         except requests.exceptions.RequestException as e:
             print(f"Erro na requisição: {e}")
-            df_dados = pd.DataFrame()
             return df_dados
-        return df_dados
 
+        return df_dados
