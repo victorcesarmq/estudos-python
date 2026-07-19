@@ -144,5 +144,5 @@ ORDER BY valorTotalEstimado DESC;
 ```
 
 Bug conhecido (v2): `consultar_top_orgaos` faz `GROUP BY "unidadeOrgao.nomeUnidade"` mas seleciona colunas não agregadas — SQL válido no SQLite, mas retorna linha arbitrária por grupo, não o top de fato. Precisa de `SUM()`/`MAX()` ou reestruturar a query. Não afeta a v1: o Power BI agrega a tabela bruta e não permite essa ambiguidade.
-git s
+
 Ver também: [ADRs](./adr/README.md).
