@@ -88,7 +88,6 @@ class Banco:
         except ValueError as e:
             print(e)
 
-
     def buscar_municipios_disponiveis(self) -> list:
         self.cursor.execute(
             '''
