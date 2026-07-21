@@ -50,6 +50,17 @@ class Coletor:
         }
         return params
 
+    def verificar_cache(self):
+        # Verifica se o arquivo JSON existe
+        if os.path.exists("./dados/df_dados"):
+            # Lê o arquivo JSON e converte para DataFrame
+            df_dados = pd.read_json("./dados/df_dados", orient='records')
+            print("Dados carregados do cache.")
+            return df_dados
+        else:
+            print("Cache não encontrado. Coletando dados da API...")
+            return self.coletar_todas_paginas()
+        
     def coletar_todas_paginas(self):
         pagina = 1
         todos_dados = []
