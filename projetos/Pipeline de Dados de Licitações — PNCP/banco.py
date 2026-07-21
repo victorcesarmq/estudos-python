@@ -12,6 +12,7 @@ class Banco:
     def criar_tabela(self): #Atualmente inutil e nao utilizada no fluxo do codigo
         self.cursor.execute(
             '''CREATE TABLE if NOT EXISTS licitacoes (
+            "numeroControlePNCP" TEXT PRIMARY KEY NOT NULL,
             "anoCompra" INTEGER NOT NULL,
             "dataInclusao" TEXT NOT NULL,
             "dataPublicacaoPncp" TEXT NOT NULL,
