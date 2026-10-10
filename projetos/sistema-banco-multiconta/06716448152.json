@@ -1,7 +1,7 @@
 {
     "CPF": "06716448152",
     "Nome": "Victor Cesar",
-    "saldo": 5001.0,
+    "saldo": 4537.0,
     "historico": [
         {
             "Id-transacao": 1,
@@ -14,6 +14,72 @@
             "Valor": -1.0,
             "Data": "08/05/2026 22:54:32",
             "Operacao": "Saque"
+        },
+        {
+            "Id-transacao": 3,
+            "Valor": 300.0,
+            "Data": "31/07/2026 00:23:51",
+            "Operacao": "Saque"
+        },
+        {
+            "Id-transacao": 4,
+            "Valor": 10.0,
+            "Data": "31/07/2026 00:29:55",
+            "Operacao": "Deposito"
+        },
+        {
+            "Id-transacao": 5,
+            "Valor": 1.0,
+            "Data": "31/07/2026 00:30:16",
+            "Operacao": "Saque"
+        },
+        {
+            "Id-transacao": 6,
+            "Valor": 100.0,
+            "Data": "31/07/2026 00:30:30",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
+        },
+        {
+            "Id-transacao": 7,
+            "Valor": 20.0,
+            "Data": "31/07/2026 00:38:11",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
+        },
+        {
+            "Id-transacao": 8,
+            "Valor": 1.0,
+            "Data": "31/07/2026 00:38:18",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
+        },
+        {
+            "Id-transacao": 9,
+            "Valor": 30.0,
+            "Data": "31/07/2026 00:38:55",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
+        },
+        {
+            "Id-transacao": 10,
+            "Valor": 100.0,
+            "Data": "31/07/2026 00:39:13",
+            "Operacao": "Deposito"
+        },
+        {
+            "Id-transacao": 11,
+            "Valor": 23.0,
+            "Data": "31/07/2026 00:39:26",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
+        },
+        {
+            "Id-transacao": 12,
+            "Valor": 99.0,
+            "Data": "31/07/2026 00:39:55",
+            "Operacao": "Transferencia Enviada",
+            "Destino": "70098387120"
         }
     ]
 }

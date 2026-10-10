@@ -7,7 +7,7 @@
 | 3 | JSON aninhado quebra o `to_sql()` | Usar `pd.json_normalize()` antes de inserir no banco |
 | 4 | API instável — timeout frequente | `timeout=30`, `try/except requests.RequestException` |
 | 5 | Rate limiting com muitas requisições | `time.sleep(0.5)` entre páginas |
-| 6 | Dados duplicados entre páginas | `drop_duplicates(subset=["numeroControlePNCP"])` |
+| 6 | Dados duplicados entre coletas persistidas | `drop_duplicates()` só resolve duplicata dentro de uma mesma coleta (em memória) — duplicata *entre* coletas exige comparar contra o banco. Solução: `INSERT OR IGNORE`/`OR REPLACE` com `numeroControlePNCP` como chave primária (ver [ADR-0004](./adr/0004-migrar-para-elt-com-power-bi.md)) |
 | 7 | Status 204 ≠ erro | Tratar separado do 400/500 — significa "sem resultados" |
 | 8 | Colunas com listas quebram `to_sql()` | Converter listas restantes com `astype(str)` antes de inserir |
 

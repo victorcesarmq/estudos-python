@@ -6,12 +6,11 @@ coletor = Coletor()
 banco = Banco()
 analisador = Analisador()
 
-# coletor.solicitar_parametros()
-# df = coletor.coletar_todas_paginas()
-# banco.inserir_licitacoes(df)
+coletor.solicitar_parametros()
+df = coletor.coletar_todas_paginas()
+banco.inserir_licitacoes(df)
 # analisador.top_licitacoes(banco.consultar_top_licitacoes())
 # analisador.top_orgaos(banco.consultar_top_orgaos())
-print("Municipios disponiveis:")
 
 
-analisador.consultar_por_municipio(banco.consultar_por_municipio())
+
